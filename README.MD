@@ -194,3 +194,16 @@ RESPONSE: `HTTP: 400` (Bad Request)
 ```
 
 - Registrar educando Novo
+
+## Requisitos do projeto
+
+- Python 3
+
+## Setup do projeto
+
+Setup de acordo com a documentação de [Quickstart do Flask](https://flask.palletsprojects.com/en/stable/installation/).
+
+- Cria virtual envirnment com o comando `python3 -m venv .venv`
+- Ativa o ambiente virtual com o comando `. .venv/bin/activate`
+- Instala as dependências com o comando `pip install -r requirements.txt`
+- Inicia o servidor com o comando `flask --app api/index run --debug`
