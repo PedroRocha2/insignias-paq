@@ -1,14 +1,11 @@
 from models.modelo_base import Modelo_base
-from pymongo import MongoClient
 from bson import ObjectId
 from dotenv import load_dotenv
-import os
+from config.database import crie_conexao_mongo
 
 load_dotenv()
 
-client = MongoClient(os.getenv('MONGO_URL'))  
-db = client["meuBanco"]  
-educandos_collection = db["educandosCollection"]
+educandos_collection = crie_conexao_mongo("educandosCollection")
 
 class Educando(Modelo_base):
     def __init__(self, id, nome, trilha, unidade, insignias):
@@ -17,6 +14,15 @@ class Educando(Modelo_base):
         self.trilha = trilha
         self.unidade = unidade
         self.insignias = insignias or []
+
+    @staticmethod
+    def listar_educandos_com_insignia_conquistada(insignia_id):
+        educandos = []
+        for educando in Educando.listar_educandos():
+            for insignia in educando.insignias:
+                if insignia["id"] == insignia_id:
+                    educandos.append(educando)
+        return educandos
 
     @staticmethod
     def listar_insignias(educando_id):
@@ -32,37 +38,43 @@ class Educando(Modelo_base):
 
     @staticmethod
     def listar_educandos():
+        crie_conexao_mongo("educandosCollection")
         documents = educandos_collection.find()
         return [Educando.from_dict(doc) for doc in documents]
 
     def gravar_educando(self):
         data = self.to_dict()
-        
+
         if self.id:
             educandos_collection.update_one({"_id": ObjectId(self.id)}, {"$set": data})
             return f"Educando {self.nome} atualizado com sucesso!"
-        
+
         else:
             result = educandos_collection.insert_one(data)
             self.id = str(result.inserted_id)
             return f"Educando {self.nome} salvo com sucesso!"
-          
+
     def atualizar_educando(self):
-        return (
-             "O educando(a)" + self.nome +  "foi atualizado com sucesso" 
-        )
-    
+        res = educandos_collection.update_one({"_id": ObjectId(self.id)}, {"$set": self.to_dict()})
+        return res.modified_count > 0
+
+
     def remover_educando(educando):
-        lista_educando = Educando.Listar_educandos()
-        if educando in lista_educando:
-            lista_educando.remove(educando)
+        res = educandos_collection.delete_one({"_id": ObjectId(educando.id)})
+        return res.deleted_count > 0
 
     def to_dict(self):
         return {
+            "id": self.id,
             "nome": self.nome,
             "trilha": self.trilha,
             "unidade": self.unidade,
-            "insignias": self.insignias
+            "insignias": [{
+                "id": insignia["id"],
+                "nome": insignia["nome"],
+                "nivel": insignia["nivel"],
+                "data": insignia["data"]
+            } for insignia in self.insignias]
         }
 
     @staticmethod
@@ -72,6 +84,6 @@ class Educando(Modelo_base):
             nome=data["nome"],
             trilha=data["trilha"],
             unidade=data["unidade"],
-            insignias=data.get("insignias", [])
+            insignias=data["insignias"]
         )
 

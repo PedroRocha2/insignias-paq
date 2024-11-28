@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from routes.insignias_routes import insignias_bp
-from routes.educandos_routes import educandos_bp
+from api.routes.educandos_routes import educandos_bp
+from api.routes.insignias_routes import insignias_bp
 
 app = Flask(__name__)
 CORS(app)
