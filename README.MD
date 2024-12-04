@@ -1,199 +1,189 @@
-## Definição de rotas da API
+Requisições POST
+Rota: http://127.0.0.1:5000/educando/conquista
+Body:
 
-### Listar educandos
+{
+    "insignia_id": "6744b7ee554712616074d3a4",
+    "educando_id": "6747bc07dccce737fd3f82c8",
+    "data_conquista": "2024-11-27",
+    "nivel": 3
+}
+Rota: http://127.0.0.1:5000/educando/criar
+Body:
 
-TODO:
-
-- Incluir foto do educando
-
-`GET /educandos`
-
-RESPONSE:
-
-```json
-[
-  {
-    "id": 1,
-    "nome_completo": "Maria da Silva",
-    "trilha": "Programação",
-    "unidade": "SC401"
-  },
-  {
-    "id": 2,
-    "nome_completo": "João da Silva",
+{
+    "nome": "Thiago Segundo",
     "trilha": "Design",
     "unidade": "Pedra Branca"
-  },
-]
-```
+}
+Rota: http://127.0.0.1:5000/insignias/criar
+Body:
 
-### Listar inisignias
-
-`GET /insignias`
-
-RESPONSE:
-
-```json
-[
-  {
-    "id": 1,
-    "nome": "Python",
-    "trilha": "Programação",
+{
+    "nome": "Design Gráfico",
+    "trilha": "Design",
     "niveis": [
-      {
-        "id": 1,
-        "requisitos": [
-          {
+        {
             "id": 1,
-            "descricao": "Leitura de arquivo CSV (Há vários dados no https://www.kaggle.com/datasets)."
-          },
-          {
+            "requisitos": [
+                {
+                    "descricao": "Defina e apresente no mínimo 2 peças gráficas das suas produções.",
+                    "id": 1
+                },
+                {
+                    "descricao": "Apresente o painel de referências.",
+                    "id": 2
+                },
+                {
+                    "descricao": "Estudo e definição: paleta de cores; tipografia; elementos gráficos.",
+                    "id": 3
+                },
+                {
+                    "descricao": "Apresente a argumentação da utilização de todos os elementos gráficos.",
+                    "id": 4
+                }
+            ]
+        },
+        {
             "id": 2,
-            "descricao": "Transformar e utilizar do arquivo tipos primitivos: int, string, lista, tuplas e dicionários."
-          },
-          {
+            "requisitos": [
+                {
+                    "descricao": "Desenvolver 3 peças gráficas que apliquem no mínimo 3 princípios de Gestalt.",
+                    "id": 1
+                },
+                {
+                    "descricao": "Utilizar a identidade do nível 1 ou criar uma nova identidade que respeite os mesmos critérios.",
+                    "id": 2
+                },
+                {
+                    "descricao": "Referências que apresentem os princípios utilizados.",
+                    "id": 3
+                },
+                {
+                    "descricao": "Apresente e explique a utilização dos princípios.",
+                    "id": 4
+                }
+            ]
+        },
+        {
             "id": 3,
-            "descricao": "Estruturas condicionais e de repetição (if, else, for, while)"
-          },
-          {
-            "id": 4,
-            "descricao": "Criar métodos"
-          },
-          {
-            "id": 5,
-            "descricao": "Escrita de um arquivo CSV"
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "requisitos": [
-          {
-            "id": 1,
-            "descricao": "Conexão e manipulação do banco de dados."
-          },
-          {
-            "id": 2,
-            "descricao": "Manipulação de strings."
-          },
-          {
-            "id": 3,
-            "descricao": "Instalação de módulos externos com PiP."
-          },
-          {
-            "id": 4,
-            "descricao": "Aplicação de paradigma funcional com map, reduce, filter e funções lambda."
-          }
-        ]
-      },
-      {
-        "id": 3,
-        "requisitos": [
-          {
-            "id": 1,
-            "descricao": "Criação de API web com Django e Flask."
-          },
-        ]
-      }
+            "requisitos": [
+                {
+                    "descricao": "Objetivo: Elaborar o redesign de uma peça gráfica já existente (poster de filme, capa de álbum, logo, embalagem).",
+                    "id": 1
+                },
+                {
+                    "descricao": "Utilize os fundamentos estudados nos níveis 1 e 2.",
+                    "id": 2
+                }
+            ]
+        }
     ]
-  }
-]
-```
-
-- insignias de um educando
-- Listar níveis de insignias
-- Listar os requisitos
-- Registar conquista de insignias
-
-### Registrar insignias Novas
-
-`POST /insignias/criar`
-
-PAYLOAD:
-
-```json
-{
-  "nome": "Python",
-  "trilha": "Programação",
-  "niveis": [
-    {
-      "id": 1,
-      "requisitos": [
-        {
-          "id": 1,
-          "descricao": "Leitura de arquivo CSV (Há vários dados no https://www.kaggle.com/datasets)."
-        },
-        {
-          "id": 2,
-          "descricao": "Transformar e utilizar do arquivo tipos primitivos: int, string, lista, tuplas e dicionários."
-        },
-        {
-          "id": 3,
-          "descricao": "Estruturas condicionais e de repetição (if, else, for, while)"
-        },
-        {
-          "id": 4,
-          "descricao": "Criar métodos"
-        },
-        {
-          "id": 5,
-          "descricao": "Escrita de um arquivo CSV"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "requisitos": [
-        {
-          "id": 1,
-          "descricao": "Conexão e manipulação do banco de dados."
-        },
-        {
-          "id": 2,
-          "descricao": "Manipulação de strings."
-        },
-        {
-          "id": 3,
-          "descricao": "Instalação de módulos externos com PiP."
-        },
-        {
-          "id": 4,
-          "descricao": "Aplicação de paradigma funcional com map, reduce, filter e funções lambda."
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "requisitos": [
-        {
-          "id": 1,
-          "descricao": "Criação de API web com Django e Flask."
-        }
-      ]
-    }
-  ]
 }
-```
+Requisições GET
+Rota: http://127.0.0.1:5000/insignias
+Rota: http://127.0.0.1:5000/insignia/:id
+Parâmetros:
 
-RESPONSE: `HTTP 201` (Created)
+id: 674494b966c8ae0456efbb0c
+Rota: http://127.0.0.1:5000/insignia/:id/educandos
+Parâmetros: id: 674494b966c8ae0456efbb0c
 
-```json
+Rota: http://127.0.0.1:5000/insignias/conquistadas
+Lista de Requisições PUT
+Rota: http://127.0.0.1:5000/educando/:id/editar
+Body:
+
 {
-  "status": "success"
+    "nome": "Thiago Cerutti (mentor)"
 }
-```
+Parâmetros:
 
-RESPONSE: `HTTP: 400` (Bad Request)
+id: 6747bc07dccce737fd3f82c8
+Rota: http://127.0.0.1:5000/insignia/:id/atualizar
+Body:
 
-```json
 {
-  "status": "error",
-  "message": "Erro na criação da insígnia",
-  "detalhes": "Descrição técnica do erro"
+    "nome": "Arduino adulterado",
+    "trilha": "programação IOT (iniciante)",
+    "niveis": [
+        {
+            "id": 1,
+            "requisitos": [
+                {
+                    "descricao": "@Compreender o básico de variáveis, funções e escopo.",
+                    "id": 1
+                },
+                {
+                    "descricao": "!Manipulação de elementos do DOM com JavaScript puro.",
+                    "id": 2
+                },
+                {
+                    "descricao": "#Utilizar eventos como click, submit e outros.",
+                    "id": 3
+                },
+                {
+                    "descricao": "Introdução ao uso de Promises e callbacks.",
+                    "id": 4
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "requisitos": [
+                {
+                    "descricao": "Compreender o básico de variáveis, funções e escopo.",
+                    "id": 1
+                },
+                {
+                    "descricao": "Manipulação de elementos do DOM com JavaScript puro.",
+                    "id": 2
+                },
+                {
+                    "descricao": "Utilizar eventos como click, submit e outros.",
+                    "id": 3
+                },
+                {
+                    "descricao": "Introdução ao uso de Promises e callbacks.",
+                    "id": 4
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "requisitos": [
+                {
+                    "descricao": "Compreender o básico de variáveis, funções e escopo.",
+                    "id": 1
+                },
+                {
+                    "descricao": "Manipulação de elementos do DOM com JavaScript puro.",
+                    "id": 2
+                },
+                {
+                    "descricao": "Utilizar eventos como click, submit e outros.",
+                    "id": 3
+                },
+                {
+                    "descricao": "Introdução ao uso de Promises e callbacks.",
+                    "id": 4
+                }
+            ]
+        }
+    ]
 }
-```
+Parâmetros:
 
-- Registrar educando Novo
+id: 6747c8a0bf45d7fb4171a3bf
+Lista de Requisições DELETE
+Rota: http://127.0.0.1:5000/educando/:id/deletar
+Parâmetros:
+
+id: 6747c36bcfc9b7df623322a4
+Rota: http://127.0.0.1:5000/insignia/:id/deletar
+Parâmetros:
+
+id: 6747c8a0bf45d7fb4171a3bf
 
 ## Requisitos do projeto
 
